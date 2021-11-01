@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +37,18 @@ public class ClienteService {
     public ClienteDTO getClientePorCpf(String cpf) {
         try {
             return this.entidadeParaDto(this.clienteRepositorio.getClienteByCpf(cpf).get());
-        } catch (Exception e) {
-            throw new ExcecaoPersonalizada("Cliente não encontrado.", HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e) {
+            throw new ExcecaoPersonalizada("Cliente não encontrado na base.", HttpStatus.NOT_FOUND);
         }
     }
 
     public Cliente inserirCliente(ClienteDTO obj) {
-        return this.clienteRepositorio.save(this.dtoParaEntidade(obj));
+        try{
+            return this.clienteRepositorio.save(this.dtoParaEntidade(obj));
+        } catch (RuntimeException e){
+            throw new ExcecaoPersonalizada("Já existe um cadastro para esse CPF.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     public void atualizarCliente(ClienteDTO obj) {
@@ -56,7 +63,7 @@ public class ClienteService {
         try {
             this.clienteRepositorio.deleteById(id);
         } catch (Exception e) {
-            throw new ExcecaoPersonalizada("Existe uma apólice vinculada ao cliente.", HttpStatus.BAD_REQUEST);
+            throw new ExcecaoPersonalizada("Não é possível excluir pois existe uma apólice vinculada à este cliente.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -76,6 +83,7 @@ public class ClienteService {
     }
 
     private Cliente dtoParaEntidade(ClienteDTO dto) {
+        dto = formatarCPF(dto);
         Cliente entidade = new Cliente();
         entidade.setId(dto.getId());
         entidade.setCpf(dto.getCpf());
@@ -83,5 +91,13 @@ public class ClienteService {
         entidade.setEndereco(dto.getEndereco());
         entidade.getEndereco().setCliente(entidade);
         return entidade;
+    }
+
+    private ClienteDTO formatarCPF(ClienteDTO obj) {
+        String cpf = obj.getCpf();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
+        obj.setCpf(cpf);
+        return obj;
     }
 }

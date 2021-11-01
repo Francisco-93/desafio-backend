@@ -72,7 +72,7 @@ public class CargaInicialConfig implements CommandLineRunner {
         e10.setCliente(c10); e11.setCliente(c11); e12.setCliente(c12);
         e13.setCliente(c13); e14.setCliente(c14); e15.setCliente(c15); e16.setCliente(c16);
 
-        Apolice a1 = new Apolice(null, LocalDate.of(2018, Month.AUGUST, 12), LocalDate.of(2023, Month.AUGUST, 11), "PBP", new BigDecimal(45000.0), c1);
+        Apolice a1 = new Apolice(null, LocalDate.of(2018, Month.AUGUST, 12), LocalDate.of(2023, Month.AUGUST, 11), "PBP-3758", new BigDecimal(45000.0), c1);
         Apolice a2 = new Apolice(null, LocalDate.of(2014, Month.SEPTEMBER, 13), LocalDate.of(2019, Month.SEPTEMBER, 12), "MWQ-7342", new BigDecimal(78550.0), c1);
         Apolice a3 = new Apolice(null, LocalDate.of(2010, Month.OCTOBER, 14), LocalDate.of(2015, Month.OCTOBER, 13), "HUO-9262", new BigDecimal(34780.0), c2);
         Apolice a4 = new Apolice(null, LocalDate.of(2019, Month.NOVEMBER, 15), LocalDate.of(2024, Month.NOVEMBER, 14), "KAK-9655", new BigDecimal(44590.0), c2);

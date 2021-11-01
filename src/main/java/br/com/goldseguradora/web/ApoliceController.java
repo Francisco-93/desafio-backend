@@ -12,8 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-
-@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/apolices")
 public class ApoliceController {
