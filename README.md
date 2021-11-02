@@ -16,6 +16,16 @@ muitas Apólices e uma Apólice pode ter somente um Cliente.
 > docker run -p 8080:8080 seguradora-gold-server
 >
 
+* Banco de dados relacional H2 em memória. Para acessar use:
+
+> http://localhost:8080/h2-console/
+>
+
+* JDBC URL: jdbc:h2:mem:testdb
+* User Name: sa
+* Password:
+
+A senha é em branco.
 
 ##### Navegação sugerida do sistema
 
