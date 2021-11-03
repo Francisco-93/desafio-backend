@@ -11,6 +11,8 @@ muitas Apólices e uma Apólice pode ter somente um Cliente.
 ##### Como rodar localmente essa aplicação:
 
 * Na raiz do projeto digite os seguintes comandos:
+> mvn clean package
+>
 > docker build -t seguradora-gold-server .
 >
 > docker run -p 8080:8080 seguradora-gold-server
